@@ -1,0 +1,11 @@
+{
+  "build": [
+    "cargo build --release"
+  ],
+  "install": [
+    "cargo run"
+  ],
+  "remove":[
+    "rm -rf ~/.config/rfoc/"
+  ]
+}
