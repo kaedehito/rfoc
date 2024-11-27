@@ -3,7 +3,8 @@
     "cargo build --release"
   ],
   "install": [
-    "cargo run"
+    "cargo run --release",
+    "mv target/release/rfoc ."
   ],
   "remove":[
     "rm -rf ~/.config/rfoc/"
