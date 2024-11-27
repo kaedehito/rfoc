@@ -43,6 +43,10 @@ struct Cli {
     #[arg(requires = "find")]
     pub findtext: Option<String>,
 
+    /// The move file
+    #[arg(requires = "mv")]
+    pub movefile: Option<String>,
+
     /// Lists all enabled syntax highlighting themes
     #[arg(long)]
     pub themes: bool,
@@ -50,6 +54,10 @@ struct Cli {
     /// Starts rfoc interactively
     #[arg(long, short)]
     pub interactive: bool,
+
+    /// Move the file
+    #[arg(long, short)]
+    pub mv: bool,
 }
 
 fn main() {
@@ -61,6 +69,7 @@ fn main() {
     let line = cli.line;
     let find = cli.find;
     let inter = cli.interactive;
+    let mv = cli.mv;
 
     if cli.themes {
         lgmain::highlight_help();
@@ -76,6 +85,15 @@ fn main() {
         eprintln!("{}: No such file or directory", "Error".red().bold());
         std::process::exit(1);
     });
+
+    if mv{
+        let to = cli.movefile.unwrap_or_else(|| {
+            eprintln!("{}: Unknown file name", "Error".red().bold());
+            std::process::exit(1);
+        }); 
+        fs::rename(&file, to).rfoc_unwrap();
+        return;
+    }
 
     if find {
         let f = cli.findtext.unwrap_or_else(|| {

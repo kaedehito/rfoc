@@ -124,6 +124,16 @@ pub fn rfoc_inter(conf: &Config) {
                             println!("Usage: system <command>");
                         }
                     }
+                    "m" | "move" => {
+                        if vec.len() >= 3 {
+                            fs::rename(vec[1], vec[2]).unwrap_or_else(|e| {
+                                eprintln!("{}: {}", "Error".red().bold(), e);
+                            });
+                            continue;
+                        }else{
+                            println!("Usage: move <from> <to>");
+                        }
+                    }
                     "h" | "help" => {
                         help();
                     }
@@ -133,8 +143,8 @@ pub fn rfoc_inter(conf: &Config) {
                         return;
                     }
                     &_ => {
-                        if vec.len() >= 1{
-                            println!("Unknown command: {}", vec[1]);
+                        if vec.len() != 0{
+                            println!("Unknown command: {}", vec[0]);
                         }else{
                             continue;
                         }
@@ -199,4 +209,7 @@ fn help() {
     println!("l(ls): Lists all files and directories in the current directory");
     println!("");
     println!("s(system): Executes the specified external command");
+    println!("");
+    println!("m(move): move the specified file");
+    println!("");
 }
