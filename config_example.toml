@@ -1,0 +1,9 @@
+[syntax]
+# Whether to enable syntax highlighting
+enable = true
+
+# Syntax highlighting theme. You can see a list of themes with `rfoc --theme`.
+theme = "base16-ocean.dark"
+
+[interactive]
+new_buffer = true
